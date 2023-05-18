@@ -8,8 +8,8 @@ function DateTime(props) {
     )
 }
 
-const DateTimePretty = (props) => {
-  let publishDate = moment(props.date);
+const DateTimePretty = ({date, component}) => {
+  let publishDate = moment(date);
   
   let sureNow = moment();
   let hourAgo = moment().add(-1, "h");
@@ -26,14 +26,16 @@ const DateTimePretty = (props) => {
     publishDate = moment(publishDate, "DD").fromNow();
   }
 
-  return <DateTime date={publishDate} />
+  return component({
+        date: publishDate
+    })
 } 
 
 function Video(props) {
     return (
         <div className="video">
             <iframe src={props.url} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            <DateTimePretty date={props.date} />
+            <DateTimePretty date={props.date} component={DateTime}/>
         </div>
     )
 }
